@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Tabla ISR</title>
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+    <div class="encabezado">
+        <form>
+            <h2>Selecciona un mes</h2>
+            <select id="mes" onchange="mostrarTabla(this.value)">
+                <option value="">selecciona un mes</option>
+                <option value="1">Enero</option>
+                <option value="2">Febrero</option>
+                <option value="3">Marzo</option>
+                <option value="4">Abril</option>
+                <option value="5">Mayo</option>
+                <option value="6">Junio</option>
+                <option value="7">Julio</option>
+                <option value="8">Agosto</option>
+                <option value="9">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+            </select>
+        </form>
+    </div>
+
+    <div id="resultado"></div>
+
+    <script>
+    function mostrarTabla(mes) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("resultado").innerHTML = xmlhttp.responseText;
+            }
+        }
+
+        xmlhttp.open("GET", `procesar.php?opcion=mostrarTabla&mes=${mes}`, true);
+        xmlhttp.send();
+    }
+
+    function calcular() {  
+        var sueldo = document.getElementById("SaldoBruto").value;
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("resultadoCalculo").innerHTML = xmlhttp.responseText;
+            }
+        }
+
+        xmlhttp.open("GET", `procesar.php?opcion=calcular&saldoBruto=${sueldo}`, true);
+        xmlhttp.send();
+    }
+    </script>
+</body>
+</html>
